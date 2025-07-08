@@ -23,8 +23,7 @@ Este é um serviço Java baseado no framework **Quarkus**, utilizando **arquitet
 ### 1. Clone o projeto
 
 ```bash
-git clone https://github.com/seu-usuario/movie-service.git
-cd movie-service
+git clone https://github.com/ivomoreirati/golden-raspberry-api.git
 ```
 
 ### 2. Rode em modo dev (hot reload ativado)
