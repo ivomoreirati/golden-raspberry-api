@@ -15,9 +15,9 @@ public class AwardResource {
     AwardService awardService;
 
     @GET
-    @Path("/intervals/{minAwards}")
+    @Path("/intervals")
     @Produces(MediaType.APPLICATION_JSON)
-    public AwardResponse getIntervals(@jakarta.ws.rs.PathParam("minAwards") int minAwards) {
-        return awardService.calculateAwardIntervals(minAwards);
+    public AwardResponse getIntervals() {
+        return awardService.calculateAwardIntervals();
     }
 }

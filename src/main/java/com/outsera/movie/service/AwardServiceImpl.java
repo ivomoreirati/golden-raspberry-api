@@ -15,7 +15,7 @@ public class AwardServiceImpl implements AwardService {
     @Inject
     MovieService movieService;
 
-    public AwardResponse calculateAwardIntervals(final int minAwards) {
+    public AwardResponse calculateAwardIntervals() {
         var intervals = movieService.findAllIsWinners(true).stream()
             .flatMap(movie -> splitProducers(movie.getProducers()).stream()
                 .map(producer -> Map.entry(producer, movie.getYear())))
@@ -28,15 +28,27 @@ public class AwardServiceImpl implements AwardService {
             .flatMap(entry -> buildIntervals(entry.getKey(), entry.getValue()).stream())
             .toList();
 
-        var sorted = intervals.stream()
-            .sorted(Comparator.comparingInt(Award::getInterval))
+        if (intervals.isEmpty()) {
+            return new AwardResponse(List.of(), List.of());
+        }
+
+        int minInterval = intervals.stream()
+            .mapToInt(Award::getInterval)
+            .min()
+            .orElseThrow();
+
+        int maxInterval = intervals.stream()
+            .mapToInt(Award::getInterval)
+            .max()
+            .orElseThrow();
+
+        var minList = intervals.stream()
+            .filter(a -> a.getInterval() == minInterval)
             .toList();
 
-        var minList = sorted.stream().limit(minAwards).collect(Collectors.toList());
-        var maxList = sorted.stream()
-            .sorted(Comparator.comparingInt(Award::getInterval).reversed())
-            .limit(minAwards)
-            .collect(Collectors.toList());
+        var maxList = intervals.stream()
+            .filter(a -> a.getInterval() == maxInterval)
+            .toList();
 
         return new AwardResponse(minList, maxList);
     }

@@ -35,7 +35,7 @@ mvn quarkus:dev
 ### 3. Acesse os endpoints
 
 - `GET /movies` → Lista todos os filmes carregados do CSV
-- `GET /awards/intervals/2` → Lista o intervalo de premiações, onde podemos escolher se queremos 1 ou mais produtores, piores e melhores.
+- `GET /awards/intervals` → Lista o intervalo de premiações
 
 ---
 

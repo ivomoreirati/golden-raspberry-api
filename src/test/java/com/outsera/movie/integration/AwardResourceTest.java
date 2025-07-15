@@ -21,9 +21,9 @@ public class AwardResourceTest {
     }
 
     @Test
-    void shouldGetAwardIntervalsWithOneMinAwards() {
+    void shouldGetAwardIntervalsAwards() {
         given()
-            .when().get("/awards/intervals/1")
+            .when().get("/awards/intervals")
             .then()
             .statusCode(200)
             .body("min.producer", hasItems("Joel Silver"))
@@ -34,21 +34,5 @@ public class AwardResourceTest {
             .body("max.interval", hasItems(13))
             .body("max.previousWin", hasItems(2002))
             .body("max.followingWin", hasItems(2015));
-    }
-
-    @Test
-    void shouldGetAwardIntervalsWithTwoMinAwards() {
-        given()
-            .when().get("/awards/intervals/2")
-            .then()
-            .statusCode(200)
-            .body("min.producer", hasItems("Joel Silver", "Bo Derek"))
-            .body("min.interval", hasItems(1, 6))
-            .body("min.previousWin", hasItems(1990, 1984))
-            .body("min.followingWin", hasItems(1991, 1990))
-            .body("max.producer", hasItems("Matthew Vaughn", "Buzz Feitshans"))
-            .body("max.interval", hasItems(13, 9))
-            .body("max.previousWin", hasItems(2002, 1985))
-            .body("max.followingWin", hasItems(2015, 1994));
     }
 }
